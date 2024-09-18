@@ -36,9 +36,9 @@ int main() {
 
   //compares strings to see if palindrome
   if (strcmp(trimmed, reversed) == 0) {
-    cout << "\"" << str << "\"" << " is a palindrome." << endl;
+    cout << "\"" << trimmed << "\"" << " is a palindrome." << endl;
   } else {
-    cout << "\"" << str << "\"" << " is NOT a palindrome." << endl;
+    cout << "\"" << trimmed << "\"" << " is NOT a palindrome." << endl;
   }
   
   return 0;
