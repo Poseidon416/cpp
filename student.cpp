@@ -5,6 +5,11 @@
 
 using namespace std;
 
+/* Nikhil Mantha
+ *C++ & Data Structures
+ *Student List
+*/
+
 struct Student {
   char fname[25];
   char lname[25];
