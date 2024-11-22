@@ -1,12 +1,22 @@
+#ifndef MEDIA_H
+#define MEDIA_H
+
 #include <iostream>
 #include <cstring>
 
 using namespace std;
 
-class media {
+class Media{
  public:
-  media();
-  media(int year, char* title);
+  Media();
+  Media(int year, char* title);
+  int getYear();
+  char* getTitle();
+  void setYear(int year);
+  void setTitle(char* title);
+ protected:
   int year;
   char* title;
 };
+
+#endif
