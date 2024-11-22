@@ -1,12 +1,16 @@
 #include <iostream>
 #include <cstring>
-#include "media.h"
+#include "Media.h"
 
 using namespace std;
 
-int main() {
-  media* m = new media();
-  cout << m->year << endl;
-  cout << m->title << endl;
+int main(){
+  char* title = new char[80];
+  strcpy(title, "George Orwell");
+  Media* m = new Media();
+  m->setYear(1984);
+  m->setTitle(title);
+  cout << m->getYear() << endl;
+  cout << m->getTitle() << endl;
   return 0;
 }
