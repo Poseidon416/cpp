@@ -113,6 +113,7 @@ void print(vector<Student*> &list) {
 void remove(vector<Student*> &list, int id) {
   for(int i = 0; i < list.size(); i++) { //loops through vector
     if(list.at(i)->id == id) { //if the ID's match
+      delete list;
       list.erase(list.begin()+i); //erases at the index where matched
     }
   }
