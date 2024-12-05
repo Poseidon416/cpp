@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <vector>
 
 #include "Media.h"
 #include "Movie.h"
@@ -8,43 +9,51 @@
 
 using namespace std;
 
-int main(){
-  char* title = new char[80];
-  strcpy(title, "George Orwell");
-  char* director = new char[80];
-  strcpy(director, "Poopy Mc.Poop the Shart");
-  Movie* m = new Movie(1984, title, director, 192, 9.5);
-  cout << m->getYear() << endl;
-  cout << m->getTitle() << endl;
-  cout << m->getDirector() << endl;
-  cout << m->getDuration() << endl;
-  cout << m->getRating() << endl;
 
-  strcpy(title, "Luther");
-  char* artist = new char[80];
-  strcpy(artist, "Kendrick Lamar feat. SZA");
-  char* publisher = new char[80];
-  strcpy(publisher, "GNX");
-  Music* mu = new Music(2024, title, artist, publisher, 156);
-  cout << mu->getYear() << endl;
-  cout << mu->getTitle() << endl;
-  cout << mu->getArtist() << endl;
-  cout << mu->getPublisher() << endl;
-  cout << mu->getDuration() << endl;
+//Function declarations:
+void add(vector<Media*> &list, char fname[25], char lname[25], int id, float gpa);
+void search(vector<Media*> &list);
+void remove(vector<Media*> &list, int id);
+
+int main(){
+  vector<Media*> list;
+
+  cout << "\033[H\033[2J"; //clear console
+
+  cout << "\033[4m\033[1m" << "\t\tWELCOME TO MEDIA DATABASE" << "\033[0m" << endl;
+  cout << "\033[1m" << "--------------------------------------------------------" << endl;
+  cout << "  Available commands: \"ADD\", \"SEARCH\", \"DELETE\", \"QUIT\"" << endl;
+  cout << "--------------------------------------------------------" << "\033[0m" << endl;
+
+  bool running = true;
+  while (running){
+    char command[10];
+    cout << "Enter command: ";
+    cin >> command;
+    
+    if (strcmp(command, "ADD") == 0) {
+      cout << "\033[1m-------- ADD --------\033[0m" << endl;
+      cout << "What kind of media would you like to add?" << endl;
+      cout << "\t1: Movie, 2: Music, 3: Video Game" << endl;
+      int option;
+      cout << "Enter number: ";
+      cin >> option;
+      
+      cout << "\033[1m-------- END --------\033[0m" << endl;
+    } else if (strcmp(command, "SEARCH") == 0) {
+      
+    } else if (strcmp(command, "DELETE") == 0) {
+      cout << "\033[1m-------- DELETE --------\033[0m" << endl;
+      
+      cout << "\033[1m------------------------\033[0m" << endl;
+    } else if (strcmp(command, "QUIT") == 0) {
+      running = false;
+    } else {
+      cout << "That command doesn't exist." << endl;
+    }
+  }
   
-  strcpy(publisher, "ASOBI");
-  strcpy(title, "Astrobot");
-  VideoGame* v = new VideoGame(2024, title, publisher, 9.7);
-  cout << v->getYear() << endl;
-  cout << v->getTitle() << endl;
-  cout << v->getPublisher() << endl;
-  cout << v->getRating() << endl;
-  
-  delete m;
-  delete director;
-  delete artist;
-  delete publisher;
-  delete mu;
-  delete v;
   return 0;
 }
+
+
