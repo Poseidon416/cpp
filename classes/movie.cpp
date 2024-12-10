@@ -13,6 +13,10 @@ Movie::Movie(int year, char* title, char* director, int duration, float rating):
   this->rating = rating;
 }
 
+Movie::~Movie(){
+  
+}
+
 //Getters
 char* Movie::getDirector(){return this->director;}
 int Movie::getDuration(){return this->duration;}
