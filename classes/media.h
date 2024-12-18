@@ -10,6 +10,7 @@ class Media{
  public:
   Media();
   Media(int year, char* title);
+  virtual ~Media();
   int getYear();
   char* getTitle();
   void setYear(int year);

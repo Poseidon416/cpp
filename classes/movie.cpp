@@ -13,8 +13,9 @@ Movie::Movie(int year, char* title, char* director, int duration, float rating):
   this->rating = rating;
 }
 
+//Destructor
 Movie::~Movie(){
-  
+  delete this->director;
 }
 
 //Getters

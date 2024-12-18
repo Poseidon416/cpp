@@ -12,6 +12,11 @@ VideoGame::VideoGame(int year, char* title, char* publisher, float rating):
   this->rating = rating;
 }
 
+//Destructor
+VideoGame::~VideoGame(){
+  delete this->publisher;
+}
+
 //Getters
 char* VideoGame::getPublisher(){return this->publisher;}
 float VideoGame::getRating(){return this->rating;}

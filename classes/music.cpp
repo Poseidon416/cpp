@@ -14,6 +14,13 @@ Music::Music(int year, char* title, char* artist, char* publisher, int duration)
   this->duration = duration;
 }
 
+//Destructor
+Music::~Music(){
+  delete this->artist;
+  delete this->publisher;
+  delete this->duration;
+}
+
 //Getters
 char* Music::getArtist(){return this->artist;}
 char* Music::getPublisher(){return this->publisher;}

@@ -16,6 +16,11 @@ Media::Media(int year, char* title){
   strcpy(this->title, title);
 }
 
+//Destructor
+virtual Media::~Media(){
+  delete this->title;
+}
+
 //Getters
 int Media::getYear(){return this->year;}
 

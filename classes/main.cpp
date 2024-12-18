@@ -33,7 +33,7 @@ int main(){
     
     if (strcmp(command, "ADD") == 0) {
       cout << "\033[1m-------< ADD >-------\033[0m" << endl;
-      
+      add(list);
       cout << "\033[1m-------< END >-------\033[0m" << endl;
     } else if (strcmp(command, "SEARCH") == 0) {
       
@@ -58,7 +58,7 @@ void add(vector<Media*> &list) {
   cout << "Enter number: ";
   cin >> option;
   switch(option){
-  case 1: //movie
+  case 1:{ //movie
     cout << "--< Adding Movie >--" << endl;
     int year;
     char* title = new char[80];
@@ -67,10 +67,11 @@ void add(vector<Media*> &list) {
     float rating;
     cout << "Enter year: ";
     cin >> year;
+    cin.ignore();
     cout << "Enter title: ";
-    cin >> title;
+    cin.getline(title, 80);
     cout << "Enter director: ";
-    cin >> director;
+    cin.getline(director, 80);
     cout << "Enter duration: ";
     cin >> duration;
     cout << "Enter rating: ";
@@ -82,11 +83,60 @@ void add(vector<Media*> &list) {
     delete title;
     delete director;
     break;
-  case 2: //music
+  }
+  case 2:{ //music
     cout << "--< Adding Music >--" << endl;
+    int year;
+    char* title = new char[80];
+    char* artist = new char[80];
+    char* publisher = new char[80];
+    int duration;
+    cout << "Enter year: ";
+    cin >> year;
+    cin.ignore();
+    cout << "Enter title: ";
+    cin.getline(title, 80);
+    cout << "Enter artist: ";
+    cin.getline(artist, 80);
+    cout << "Enter publisher: ";
+    cin.getline(publisher, 80);
+    cout << "Enter duration: ";
+    cin >> duration;
+
+    Music* mu = new Music(year, title, artist, publisher, duration);
+    list.push_back(mu);
+
+    delete title;
+    delete artist;
+    delete publisher;
     break;
-  case 3: //videogame
+  }  
+  case 3:{ //videogame
     cout << "--< Adding Video Game >--" << endl;
+    int year;
+    char* title = new char[80];
+    char* publisher = new char[80];
+    float rating;
+    cout << "Enter year: ";
+    cin >> year;
+    cin.ignore();
+    cout << "Enter title: ";
+    cin.getline(title, 80);
+    cout << "Enter publisher: ";
+    cin.getline(publisher, 80);
+    cout << "Enter rating: ";
+    cin >> rating;
+
+    VideoGame* v = new VideoGame(year, title, publisher, rating);
+    list.push_back(v);
+
+    delete title;
+    delete publisher;
     break;
   }
+  }
+}
+
+void search(vector<Media*> &list){
+
 }
