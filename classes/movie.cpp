@@ -22,3 +22,14 @@ Movie::~Movie(){
 char* Movie::getDirector(){return this->director;}
 int Movie::getDuration(){return this->duration;}
 float Movie::getRating(){return this->rating;}
+
+//Methods
+void Movie::print(){
+  cout << "---< Movie >---" << endl;
+  cout << "Title: " << this->title << endl;
+  cout << "Year: " << this->year << endl;
+  cout << "Director: " << this->director << endl;
+  cout << "Duration: " << this->duration << " mins" << endl;
+  cout << "Rating: " << this->rating << "/10" << endl;
+  cout << "---------------" << endl;
+}

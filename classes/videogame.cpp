@@ -20,3 +20,12 @@ VideoGame::~VideoGame(){
 //Getters
 char* VideoGame::getPublisher(){return this->publisher;}
 float VideoGame::getRating(){return this->rating;}
+
+void VideoGame::print(){
+  cout << "---< Video Game >---" << endl;
+  cout << "Title: " << this->title << endl;
+  cout << "Year: " << this->year << endl;
+  cout << "Publisher: " << this->publisher << endl;
+  cout << "Rating: " << this->rating << "/10" << endl;
+  cout << "--------------------" << endl;
+}

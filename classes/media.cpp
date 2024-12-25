@@ -17,16 +17,18 @@ Media::Media(int year, char* title){
 }
 
 //Destructor
-virtual Media::~Media(){
+Media::~Media(){
   delete this->title;
 }
 
 //Getters
 int Media::getYear(){return this->year;}
-
 char* Media::getTitle(){return this->title;}
 
-//Setters
-void Media::setYear(int year){this->year = year;}
-
-void Media::setTitle(char* title){strcpy(this->title, title);}
+//Methods
+void Media::print(){
+  cout << "---< Media >---" << endl;
+  cout << "Title: " << this->title << endl;
+  cout << "Year: " << this->year << endl;
+  cout << "---------------" << endl;
+}

@@ -18,10 +18,21 @@ Music::Music(int year, char* title, char* artist, char* publisher, int duration)
 Music::~Music(){
   delete this->artist;
   delete this->publisher;
-  delete this->duration;
 }
 
 //Getters
 char* Music::getArtist(){return this->artist;}
 char* Music::getPublisher(){return this->publisher;}
 int Music::getDuration(){return this->duration;}
+
+//Methods
+void Music::print(){
+  cout << "---< Music >---" << endl;
+  cout << "Title: " << this->title << endl;
+  cout << "Year: " << this->year << endl;
+  cout << "Artist: " << this->artist << endl;
+  cout << "Publisher: " << this->publisher << endl;
+  cout << "Duration: " << this->duration << " secs" << endl;
+  cout << "---------------" << endl;
+}
+

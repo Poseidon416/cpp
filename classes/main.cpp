@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <vector>
+#include <algorithm>
 
 #include "Media.h"
 #include "Movie.h"
@@ -13,7 +14,7 @@ using namespace std;
 //Function declarations:
 void add(vector<Media*> &list);
 void search(vector<Media*> &list);
-void remove(vector<Media*> &list, int id);
+void remove(vector<Media*> &list);
 
 int main(){
   vector<Media*> list;
@@ -36,10 +37,12 @@ int main(){
       add(list);
       cout << "\033[1m-------< END >-------\033[0m" << endl;
     } else if (strcmp(command, "SEARCH") == 0) {
-      
+      cout << "\033[1m-------< SEARCH >-------\033[0m" << endl;
+      search(list);
+      cout << "\033[1m------------------------\033[0m" << endl;
     } else if (strcmp(command, "DELETE") == 0) {
       cout << "\033[1m-------< DELETE >-------\033[0m" << endl;
-      
+      remove(list);
       cout << "\033[1m------------------------\033[0m" << endl;
     } else if (strcmp(command, "QUIT") == 0) {
       running = false;
@@ -138,5 +141,61 @@ void add(vector<Media*> &list) {
 }
 
 void search(vector<Media*> &list){
+  cout << "Would you like to search by year or title?" << endl;
+  cout << "   1: Year, 2: Title" << endl;
+  int option;
+  cout << "Enter number: ";
+  cin >> option;
 
+  if(option == 1){//search by year
+    int year;
+    cout << "Enter year: ";
+    cin >> year;
+    for(int i = 0; i < list.size(); i++){
+      if(list.at(i)->getYear() == year){
+	list.at(i)->print();
+      }
+    }
+  } else {//search by title
+    char title[40];
+    cout << "Enter title: ";
+    cin.getline(title, 40, '\n');
+    for(int i = 0; i < list.size(); i++){
+      if(strcmp(list.at(i)->getTitle(), title) == 0){
+	list.at(i)->print();
+      }
+    }
+  }
+}
+
+void remove(vector<Media*> &list){
+ cout << "Would you like to delete by year or title?" << endl;
+  cout << "   1: Year, 2: Title" << endl;
+  int option;
+  cout << "Enter number: ";
+  cin >> option;
+
+  if(option == 1){//delete by year
+    int year;
+    cout << "Enter year: ";
+    cin >> year;
+    list.erase(remove_if(list.begin(), list.end(), [&](Media* m){
+      if(m->getYear() == year){
+	delete m;
+	return true;
+      }
+      return false;
+    }), list.end());
+  } else {//delete by title
+    char title[40];
+    cout << "Enter title: ";
+    cin.getline(title, 40, '\n');
+    list.erase(remove_if(list.begin(), list.end(), [&](Media* m){
+      if(strcmp(m->getTitle(), title) == 0){
+        delete m;
+        return true;
+      }
+      return false;
+    }), list.end());
+  }
 }

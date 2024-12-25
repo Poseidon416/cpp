@@ -11,6 +11,7 @@ class Movie : public Media {
   char* getDirector();
   int getDuration();
   float getRating();
+  void print();
  private:
   char* director;
   int duration;
