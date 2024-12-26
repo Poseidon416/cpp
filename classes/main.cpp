@@ -3,10 +3,10 @@
 #include <vector>
 #include <algorithm>
 
-#include "Media.h"
-#include "Movie.h"
-#include "Music.h"
-#include "VideoGame.h"
+#include "media.h"
+#include "movie.h"
+#include "music.h"
+#include "videogame.h"
 
 using namespace std;
 
@@ -189,6 +189,7 @@ void remove(vector<Media*> &list){
   } else {//delete by title
     char title[40];
     cout << "Enter title: ";
+    cin.ignore();
     cin.getline(title, 40, '\n');
     list.erase(remove_if(list.begin(), list.end(), [&](Media* m){
       if(strcmp(m->getTitle(), title) == 0){
