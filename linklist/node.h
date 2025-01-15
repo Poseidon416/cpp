@@ -8,12 +8,12 @@ using namespace std;
 
 class Node {
  public:
-  Node(Student* student);
-  ~Node();
-  Student* getStudent();
-  void setStudent(Student* student);
-  Node* getNext();
-  void setNext(Node* next);
+  Node(Student* student); //constructor, takes a student pointer as input
+  ~Node(); //deletes node, student object, assosicated, and sets next to NULL
+  Student* getStudent(); //returns corresponding student object pointer
+  void setStudent(Student* student); //sets value of student pointer
+  Node* getNext(); //returns pointer to next node
+  void setNext(Node* next); //sets next node
  private:
   Student* student;
   Node* next;

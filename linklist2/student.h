@@ -6,9 +6,9 @@ using namespace std;
 
 class Student {
  public:
-  Student(char* fname, char* lname, int id, float gpa); //assigns values of all variables
-  ~Student(); //deletes char* variables from heap to prevent leaks
-  char* getFName(); 
+  Student(char* fname, char* lname, int id, float gpa);
+  ~Student();
+  char* getFName();
   char* getLName();
   int getID();
   float getGPA();
