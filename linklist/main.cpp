@@ -10,7 +10,7 @@ int main(){
   char* lname = new char[25];
   strcpy(fname, "nikhil");
   strcpy(lname, "mantha");
-  Student* s = new Student(fname, lname, 1, 2.7);
+  Student* s = new Student(fname, lname, 1, 2.7);  
   Student* s2 = new Student(fname, lname, 2, 4.3);
   Node* one = new Node(s);
   Node* two = new Node(s2);
