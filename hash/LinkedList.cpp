@@ -39,3 +39,6 @@ Student* Node::getStudent() { return student; }
 
 LinkedList::LinkedList(Node* n): head(n) {}
 
+void LinkedList::add(Node* n) {
+  
+}

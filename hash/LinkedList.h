@@ -32,4 +32,5 @@ class LinkedList{
   Node* head;
  public:
   LinkedList(Node* n);
+  void add(Node* n);
 };
