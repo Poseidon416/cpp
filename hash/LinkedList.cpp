@@ -4,27 +4,22 @@
 
 using namespace std;
 
-Student::Student(string s, int i, float f): name(s), id(i), gpa(f) {}
-
-string Student::getName(){ return name; }
-int Student::getID() { return id; }
-float Student::getGPA(){ return gpa; }
-
-Student* Student::makeStudent() {
-  string s;
-  int i;
-  float f;
+Student::Student(){
   cout << "Enter name: ";
   getline(cin, name);
   cout << "Enter ID: ";
   cin >> id;
   cout << "Enter GPA: ";
   cin >> gpa;
-  Student* st = new Student(s, i, f);
-  return st;
 }
 
-Node::Node(Student* s): student(s), next(NULL) {}
+string Student::getName(){ return name; }
+int Student::getID() { return id; }
+float Student::getGPA(){ return gpa; }
+
+void Student::makeStudents(int amount) {}
+
+Node::Node(): student(new Student()), next(NULL) {}
 Node::~Node(){
   delete student;
   next = NULL;
@@ -37,8 +32,25 @@ void Node::setNext(Node* n) {
 
 Student* Node::getStudent() { return student; }
 
-LinkedList::LinkedList(Node* n): head(n) {}
+LinkedList::LinkedList(){
+  head = NULL;
+}
 
-void LinkedList::add(Node* n) {
+void LinkedList::add(bool &reHash) {
+  Node* newNode = new Node();
+
+  if (head == NULL) { //if linked list is empty
+    head = newNode;
+    return;
+  }
   
+  Node* last = head;
+  int count = 1;
+  while(last->getNext() != NULL) {
+    last = last->getNext();
+    count++;
+  }
+  last->setNext(newNode);
+
+  reHash = (count == 4)? true:false;
 }

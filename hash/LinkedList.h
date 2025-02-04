@@ -8,11 +8,11 @@ class Student{
   int id;
   float gpa;
  public:
-  Student(string s, int i, float f);
+  Student();
   string getName();
   int getID();
   float getGPA();
-  Student* makeStudent();
+  void makeStudents(int amount);
 };
 
 class Node{
@@ -20,7 +20,7 @@ class Node{
   Student* student;
   Node* next;
  public:
-  Node(Student* s);
+  Node();
   ~Node();
   Node* getNext();
   void setNext(Node* n);
@@ -31,6 +31,6 @@ class LinkedList{
  private:
   Node* head;
  public:
-  LinkedList(Node* n);
-  void add(Node* n);
+  LinkedList();
+  void add(bool &reHash);
 };
