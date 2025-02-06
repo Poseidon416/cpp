@@ -36,9 +36,9 @@ LinkedList::LinkedList(){
   head = NULL;
 }
 
-void LinkedList::add(bool &reHash) {
-  Node* newNode = new Node();
+Node* LinkedList::getHead() { return head; }
 
+void LinkedList::add(Node* newNode, bool &reHash) {
   if (head == NULL) { //if linked list is empty
     head = newNode;
     return;

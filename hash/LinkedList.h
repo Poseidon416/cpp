@@ -32,5 +32,6 @@ class LinkedList{
   Node* head;
  public:
   LinkedList();
-  void add(bool &reHash);
+  Node* getHead();
+  void add(Node* newNode, bool &reHash);
 };
