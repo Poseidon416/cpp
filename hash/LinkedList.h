@@ -1,4 +1,4 @@
-y#include <string>
+#include <string>
 
 using namespace std;
 
@@ -32,6 +32,7 @@ class LinkedList{
   Node* head;
  public:
   LinkedList();
+  ~LinkedList();
   Node* getHead();
   void add(Node* newNode, bool &reHash);
 };

@@ -36,6 +36,15 @@ LinkedList::LinkedList(){
   head = NULL;
 }
 
+LinkedList::~LinkedList(){
+  Node* current = head;
+  while(current != NULL){
+    Node* temp = current;
+    current = current->getNext();
+    delete temp;
+  }
+}
+
 Node* LinkedList::getHead() { return head; }
 
 void LinkedList::add(Node* newNode, bool &reHash) {
