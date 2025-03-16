@@ -92,7 +92,7 @@ void rehash(LinkedList** &hashTable, int &tableSize){
 	int id = current->getStudent()->getID();
 	int newIndex = hashbrown(id, newSize);
 	if(newTable[newIndex] == NULL){
-	  newTable[newIndex] == new LinkedList();
+	  newTable[newIndex] = new LinkedList();
 	}
 
 	Node* temp = current;
