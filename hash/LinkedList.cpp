@@ -13,12 +13,19 @@ Student::Student(){
   cin >> gpa;
 }
 
+Student::Student(Student* s){
+  name = s->getName();
+  id = s->getID();
+  gpa = s->getGPA();
+}
+
 string Student::getName(){ return name; }
 int Student::getID() { return id; }
 float Student::getGPA(){ return gpa; }
 
 void Student::makeStudents(int amount) {}
 
+Node::Node(Student* s): student(s), next(NULL) {}
 Node::Node(): student(new Student()), next(NULL) {}
 Node::~Node(){
   delete student;
@@ -63,3 +70,4 @@ void LinkedList::add(Node* newNode, bool &reHash) {
 
   reHash = (count == 4)? true:false;
 }
+

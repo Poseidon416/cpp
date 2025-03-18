@@ -85,30 +85,27 @@ void nullify(LinkedList** &hashTable, int tableSize){
 void rehash(LinkedList** &hashTable, int &tableSize){
   int newSize = (tableSize * 2) - 1;
   LinkedList** newTable = new LinkedList*[newSize];
+  nullify(newTable, newSize);
   for(int i = 0; i < tableSize; i++){
     if(hashTable[i] != NULL){
       Node* current = hashTable[i]->getHead();
-      while(current->getNext() != NULL){
+      while(current != NULL){
 	int id = current->getStudent()->getID();
 	int newIndex = hashbrown(id, newSize);
 	if(newTable[newIndex] == NULL){
 	  newTable[newIndex] = new LinkedList();
 	}
-
-	Node* temp = current;
-	temp->setNext(NULL);
 	bool reHash = false;
-	newTable[newIndex]->add(temp, reHash);
-	if(reHash){
-	  rehash(hashTable, newSize);
-	}
+	Node* newNode = new Node(new Student(current->getStudent()));
+	newTable[newIndex]->add(newNode, reHash);
 	current = current->getNext();
       }
     }
   }
-  
-  LinkedList** temp = hashTable;
+  for (int i = 0; i < tableSize; i++) {
+    delete hashTable[i];
+  }
+  delete[] hashTable;
   hashTable = newTable;
-  delete[] temp;
   tableSize = newSize;
 }

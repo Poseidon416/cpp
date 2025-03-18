@@ -9,6 +9,7 @@ class Student{
   float gpa;
  public:
   Student();
+  Student(Student* s);
   string getName();
   int getID();
   float getGPA();
@@ -20,6 +21,7 @@ class Node{
   Student* student;
   Node* next;
  public:
+  Node(Student* s);
   Node();
   ~Node();
   Node* getNext();
