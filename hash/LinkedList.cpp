@@ -13,6 +13,12 @@ Student::Student(){
   cin >> gpa;
 }
 
+Student::Student(string name, int id, float gpa){
+  this->name = name;
+  this->id = id;
+  this->gpa = gpa;
+}
+
 Student::Student(Student* s){
   name = s->getName();
   id = s->getID();
@@ -71,3 +77,27 @@ void LinkedList::add(Node* newNode, bool &reHash) {
   reHash = (count == 4)? true:false;
 }
 
+void LinkedList::remove(Node* current, Node* &head, int id) {
+  //Case: Deleting head
+  if(head->getStudent()->getID() == id) {
+    Node* temp = head; //stores in temp variable as head will be modified
+    head = head->getNext(); //Makes next node new head
+    delete temp; //deletes original head
+    cout << "\033[1mDeleted student with ID: " << id << ".\033[0m" << endl;
+    return;
+  }
+  //Case: Delete between 2 nodes or last node
+  Node* next = current->getNext();
+  if(next->getStudent()->getID() == id) {
+    current->setNext(next->getNext());
+    delete next;
+    cout << "\033[1mDeleted student with ID: " << id << ".\033[0m" << endl;
+    return;
+  }
+  //Case: No node was deleted
+  if(current == NULL) { //if no student matched the id
+    cout << "\033[1mStudent with ID: " << id << "was not found." << "\033[0m" << endl;
+  }
+  //Recurse: go to next node
+  remove(next, head, id);
+}

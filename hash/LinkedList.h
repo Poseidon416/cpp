@@ -9,6 +9,7 @@ class Student{
   float gpa;
  public:
   Student();
+  Student(string name, int id, float gpa);
   Student(Student* s);
   string getName();
   int getID();
@@ -37,4 +38,5 @@ class LinkedList{
   ~LinkedList();
   Node* getHead();
   void add(Node* newNode, bool &reHash);
+  void remove(Node* current, Node* &head, int id);
 };

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include "LinkedList.h"
 
@@ -13,7 +14,7 @@ int main(){
 
   cout << "\033[4m\033[1m" << "\t\tWELCOME TO STUDENT LIST" << "\033[0m" << endl;
   cout << "\033[1m" << "-------------------------------------------------------" << endl;
-  cout << " Commands: \"ADD\", \"PRINT\", \"DELETE\", \"QUIT\"" << endl;
+  cout << " Commands: \"ADD\", \"FILE\", \"PRINT\", \"DELETE\", \"QUIT\"" << endl;
   cout << "-------------------------------------------------------" << "\033[0m" << endl;
 
   int tableSize = 101;
@@ -39,11 +40,34 @@ int main(){
       bool reHash = false;
       hashTable[index]->add(n, reHash);
       if(reHash) {
-	cout << tableSize;
 	rehash(hashTable, tableSize);
-	cout << tableSize;
       }
       cout << "\033[1m-------- END --------\033[0m" << endl;
+    } else if (command == "FILE") {
+      fstream file("students.txt");
+
+      string name;
+      string strID;
+      string strGPA;
+      while (getline(file, name, ',')){
+	getline(file, strID, ',');
+	getline(file, strGPA);
+	int id = stoi(strID);
+	float gpa = stof(strGPA);
+	
+	int index = hashbrown(id, tableSize);
+	Node* newNode = new Node(new Student(name, id, gpa));
+	bool reHash = false;
+
+	if(hashTable[index] == NULL){
+	  hashTable[index] = new LinkedList();
+	}
+	hashTable[index]->add(newNode, reHash);
+	if(reHash) {
+	  rehash(hashTable, tableSize);
+	}
+      }
+      file.close();
     } else if (command == "PRINT") { // prints all students currently in list
       cout << "\033[1m-------- STUDENTS --------\033[0m" << endl;
       for(int i = 0; i < tableSize; i++){
