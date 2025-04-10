@@ -77,7 +77,7 @@ void LinkedList::add(Node* newNode, bool &reHash) {
   reHash = (count == 4)? true:false;
 }
 
-void LinkedList::remove(Node* current, Node* &head, int id) {
+void LinkedList::remove(Node* current, int id) {
   //Case: Deleting head
   if(head->getStudent()->getID() == id) {
     Node* temp = head; //stores in temp variable as head will be modified
@@ -99,5 +99,5 @@ void LinkedList::remove(Node* current, Node* &head, int id) {
     cout << "\033[1mStudent with ID: " << id << "was not found." << "\033[0m" << endl;
   }
   //Recurse: go to next node
-  remove(next, head, id);
+  remove(next, id);
 }

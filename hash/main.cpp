@@ -45,7 +45,7 @@ int main(){
       cout << "\033[1m-------- END --------\033[0m" << endl;
     } else if (command == "FILE") {
       fstream file("students.txt");
-
+      
       string name;
       string strID;
       string strGPA;
@@ -85,7 +85,11 @@ int main(){
       cout << "\033[1m--------------------------\033[0m" << endl;
     } else if (command == "DELETE") { // deletes student based on their ID
       cout << "\033[1m-------- DELETE --------\033[0m" << endl;
-      //delete
+      int delID;
+      cout << "Enter ID: ";
+      cin >> delID;
+      int delindex = hashbrown(delID, tableSize);
+      hashTable[delindex]->remove(hashTable[delindex]->getHead(), delID);
       cout << "\033[1m------------------------\033[0m" << endl;
     } else if (command == "QUIT") {
       running = false; //ends while loop

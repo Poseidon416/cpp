@@ -38,5 +38,5 @@ class LinkedList{
   ~LinkedList();
   Node* getHead();
   void add(Node* newNode, bool &reHash);
-  void remove(Node* current, Node* &head, int id);
+  void remove(Node* current, int id);
 };
