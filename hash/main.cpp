@@ -17,9 +17,10 @@ int main(){
   cout << " Commands: \"ADD\", \"FILE\", \"PRINT\", \"DELETE\", \"QUIT\"" << endl;
   cout << "-------------------------------------------------------" << "\033[0m" << endl;
 
+  //declare table and size
   int tableSize = 101;
   LinkedList** hashTable = new LinkedList*[tableSize];
-  nullify(hashTable, tableSize);
+  nullify(hashTable, tableSize); //initializes each value to NULL
   
   bool running = true;
   while (running){
@@ -31,19 +32,19 @@ int main(){
     
     if (command == "ADD") { //adds a student to the linked list
       cout << "\033[1m-------- ADD --------\033[0m" << endl;
-      Node* n = new Node();
+      Node* n = new Node(); 
       int id = n->getStudent()->getID();
-      int index = hashbrown(id, tableSize);
+      int index = hashbrown(id, tableSize); //hash function to convert student id to hashtable index
       if(hashTable[index] == NULL){
-	hashTable[index] = new LinkedList();
+	hashTable[index] = new LinkedList(); //creates new linked list object if null at index
       }
-      bool reHash = false;
+      bool reHash = false; //checks if rehash is necessary each time a node is added
       hashTable[index]->add(n, reHash);
       if(reHash) {
 	rehash(hashTable, tableSize);
       }
       cout << "\033[1m-------- END --------\033[0m" << endl;
-    } else if (command == "FILE") {
+    } else if (command == "FILE") { //adds 250 random students from a file
       fstream file("students.txt");
       
       string name;
@@ -100,21 +101,21 @@ int main(){
   return 0;
 }
 
-int hashbrown(int id, int tableSize){
+int hashbrown(int id, int tableSize){ //hash function
   return (id % tableSize);
 }
 
-void nullify(LinkedList** &hashTable, int tableSize){
+void nullify(LinkedList** &hashTable, int tableSize){ //sets all values in array to null
   for(int i = 0; i < tableSize; i++){
     hashTable[i] = NULL;
   }
 }
 
-void rehash(LinkedList** &hashTable, int &tableSize){
+void rehash(LinkedList** &hashTable, int &tableSize){//rehash function
   int newSize = (tableSize * 2) - 1;
-  LinkedList** newTable = new LinkedList*[newSize];
+  LinkedList** newTable = new LinkedList*[newSize]; //creates new table twice the size minus 1
   nullify(newTable, newSize);
-  for(int i = 0; i < tableSize; i++){
+  for(int i = 0; i < tableSize; i++){//loops through old hashtable
     if(hashTable[i] != NULL){
       Node* current = hashTable[i]->getHead();
       while(current != NULL){
@@ -125,15 +126,15 @@ void rehash(LinkedList** &hashTable, int &tableSize){
 	}
 	bool reHash = false;
 	Node* newNode = new Node(new Student(current->getStudent()));
-	newTable[newIndex]->add(newNode, reHash);
+	newTable[newIndex]->add(newNode, reHash); //adds all old students to new table
 	current = current->getNext();
       }
     }
   }
-  for (int i = 0; i < tableSize; i++) {
+  for (int i = 0; i < tableSize; i++) { //deletes old table's linked list objects
     delete hashTable[i];
   }
-  delete[] hashTable;
-  hashTable = newTable;
-  tableSize = newSize;
+  delete[] hashTable; //deletes old table
+  hashTable = newTable; //updates hashtable to be the new one
+  tableSize = newSize; //updates tablesize to be the new size
 }
