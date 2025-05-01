@@ -27,11 +27,11 @@ int main(){
     cin >> command;
     cin.ignore();
     
-    if (command == "ADD") { //adds a student to the linked list
+    if (command == "ADD") { //adds a number to the heap
       cout << "\033[1m-------- ADD --------\033[0m" << endl;
       
       cout << "\033[1m-------- END --------\033[0m" << endl;
-    } else if (command == "FILE") { //adds 250 random students from a file
+    } else if (command == "FILE") { //adds numbers from a file
       //fstream file("numbers.txt");
       
       //file.close();
