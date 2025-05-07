@@ -44,13 +44,18 @@ int main(){
 	rehash(hashTable, tableSize);
       }
       cout << "\033[1m-------- END --------\033[0m" << endl;
-    } else if (command == "FILE") { //adds 250 random students from a file
+    } else if (command == "FILE") { //adds n random students from a file
+      int num;
+      cout << "How many students would you like to add? ";
+      cin >> num;
+      
       fstream file("students.txt");
       
       string name;
       string strID;
       string strGPA;
-      while (getline(file, name, ',')){
+      for (; num > 0; num--){
+	getline(file, name, ',');
 	getline(file, strID, ',');
 	getline(file, strGPA);
 	int id = stoi(strID);
@@ -68,6 +73,7 @@ int main(){
 	  rehash(hashTable, tableSize);
 	}
       }
+      cout << "Students succesfully added." << endl;
       file.close();
     } else if (command == "PRINT") { // prints all students currently in list
       cout << "\033[1m-------- STUDENTS --------\033[0m" << endl;
