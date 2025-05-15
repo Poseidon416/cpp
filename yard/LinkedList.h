@@ -1,3 +1,6 @@
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
+
 #include <string>
 using namespace std;
 
@@ -20,3 +23,5 @@ class LinkedList{
   ~LinkedList();
   Node* getHead();
 };
+
+#endif

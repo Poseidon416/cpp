@@ -1,11 +1,12 @@
 #include <iostream>
 #include <string>
 #include "Stack.h"
+#include "Queue.h"
 
 using namespace std;
 
 int main(){
-  Stack* s = new Stack();
+  Queue* s = new Queue();
   string v = s->pop();
   cout << v << endl;
   s->push("1");

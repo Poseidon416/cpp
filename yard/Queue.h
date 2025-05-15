@@ -3,8 +3,10 @@
 using namespace std;
 
 class Queue: public LinkedList {
- public:
+private:
+  Node* tail;
+public:
   Queue();
   void push(string s);
   string pop();
-}
+};
