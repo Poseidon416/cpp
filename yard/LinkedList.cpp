@@ -1,9 +1,9 @@
 #include <string>
-#include "LinkedList.h"
+#include "LinkedList.hpp"
 
 using namespace std;
 
-Node::Node(string s): val(s) {}
+Node::Node(string s): val(s), next(NULL) {}
 Node* Node::getNext() { return next; }
 void Node::setNext(Node* n) { next = n; }
 string Node::getVal() { return val; }

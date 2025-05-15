@@ -7,6 +7,6 @@ private:
   Node* tail;
 public:
   Queue();
-  void push(string s);
-  string pop();
+  void enqueue(string s);
+  string dequeue();
 };

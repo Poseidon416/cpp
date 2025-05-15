@@ -1,12 +1,12 @@
 #include <string>
-#include "Queue.h"
+#include "Queue.hpp"
 using namespace std;
 
 Queue::Queue() : LinkedList() {
   tail = NULL;
 }
 
-void Queue::push(string s) {
+void Queue::enqueue(string s) {
   Node* newNode = new Node(s);
   if (head == NULL) {
     head = newNode;
@@ -17,13 +17,15 @@ void Queue::push(string s) {
   }
 }
 
-string Queue::pop() {
+string Queue::dequeue() {
   if (head == NULL) {
     return "EMPTY";
   }
   Node* temp = head;
   string s = temp->getVal(); 
-  if(head == tail) { tail = NULL; }
+  if(head == tail) {
+    tail = NULL;
+  } 
   head = head->getNext();
   delete temp;
   return s;

@@ -1,5 +1,5 @@
 #include <string>
-#include "Stack.h"
+#include "Stack.hpp"
 using namespace std;
 
 Stack::Stack() : LinkedList() {}
@@ -19,4 +19,8 @@ string Stack::pop() {
   head = head->getNext();
   delete temp;
   return s;
+}
+
+string Stack::peek() {
+  return head->getVal();
 }

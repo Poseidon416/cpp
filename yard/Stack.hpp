@@ -7,4 +7,5 @@ public:
   Stack();
   void push(string s);
   string pop();
+  string peek();
 };
