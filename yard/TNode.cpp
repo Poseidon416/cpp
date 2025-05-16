@@ -1,5 +1,5 @@
 #include <string>
-#include "Tree.hpp"
+#include "TNode.hpp"
 using namespace std;
 
 TNode::TNode(string s): val(s), left(NULL), right(NULL) {}

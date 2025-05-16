@@ -1,5 +1,5 @@
 #include <string>
-#include "LinkedList.h"
+#include "LinkedList.hpp"
 using namespace std;
 
 class Stack: public LinkedList {
