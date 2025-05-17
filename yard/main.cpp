@@ -7,52 +7,117 @@
 
 using namespace std;
 
-string shuntingYard(string infix);
+/* sources:
+ * https://en.wikipedia.org/wiki/Shunting_yard_algorithm
+ * https://en.wikipedia.org/wiki/Binary_expression_tree
+ */
+
+bool isOperator(char op);
+int operatorRank(char op);
+string assosciation(char op);
+
+Queue<string>* shuntingYard(string infix);
 
 int main(){
   cout << "\033[4m\033[1m\tShunting Yard Algorithm\033[0m" << endl;
   
   string input;
-  cout << "Enter an equation (+,-,*,/):  ";
+  cout << "Enter an equation (+,-,*,/,^): ";
   getline(cin, input);
-  shuntingYard(input);
-
+  Queue<string>* postfix = shuntingYard(input);
+  if(postfix->isEmpty()) {
+    cout << "Enter valid expression.";
+    exit(1);
+  }
+  cout << "Post-fix: ";
+  while(!postfix->isEmpty()){
+    cout << postfix->dequeue();
+  }
   return 0;
 }
 
-string shuntingYard(string infix) {
-  Queue* output = new Queue();
-  Stack* operators = new Stack();
+bool isOperator(char op) {
+  return op == '+' || op == '-' || op == '*' || op == '/' || op == '^';
+}
+
+int operatorRank(string op) {
+  if (op == "^") {
+    return 4;
+  } else if (op == "*" || op == "/") {
+    return 3;
+  } else if (op == "+" || op == "-") {
+    return 2;
+  } else {
+    return 0;
+  }  
+}
+
+string assosciation(char op) {
+  if (op == '^') {
+    return "RIGHT";
+  }
+  return "LEFT";
+}
+
+Queue<string>* shuntingYard(string infix) {
+  Queue<string>* output = new Queue<string>();
+  Stack<string>* operators = new Stack<string>();
 
   int start = -1;
   int count = 0;
   for (int i = 0; i < infix.length(); i++) {
-    char c = infix.at(i);
+    char c = infix[i];
     if (isdigit(c)) {
-      if(start == -1) {
+      if(start == -1) {//checks if there is no current num sequence
 	start = i;
 	count = 1;
-      } else {
+      } else { //if there is a sequence, increases digit count
 	count++;
       }
-    } else {
-      if (start != -1) { //there is a sequence of digits
+    } else { //if not a digit
+      if (start != -1) { //completes num sequence and resets
 	string s = infix.substr(start, count);
-	cout << s << endl;
+	output->enqueue(s);
 	start = -1;
 	count = 0;
       }
-      if (!isspace(c)) {
-	cout << c << endl;
+      if (isOperator(c)) {
+	string s(1, c);
+	while (!operators->isEmpty() && operators->peek() != "(" && (operatorRank(operators->peek()) >
+	operatorRank(s) || (operatorRank(operators->peek()) == operatorRank(s) && assosciation(c) == "LEFT"))) {
+	  output->enqueue(operators->pop());
+	}
+	operators->push(s);
+      } else if (c == '(') {
+	string s(1, c);
+	operators->push(s);
+      } else if (c == ')') {
+	while (!operators->isEmpty() && operators->peek() != "(") {
+	  output->enqueue(operators->pop());
+	}
+	if (operators->isEmpty()) {
+	  cout << "Error: Mismatched parentheses." << endl;
+	  exit(1);
+	}
+	operators->pop();
       }
     }
-    //if last char is a digit
-    if (start != -1) {
-      string s = infix.substr(start, count);
-      cout << s << endl;
-    }
   }
-  return "";
+  //if last char is a digit
+  if (start != -1) {
+    string s = infix.substr(start, count);
+    output->enqueue(s);
+  }
+  //empty operator stack into output
+  while(!operators->isEmpty()) {
+    if (operators->peek() == "(" || operators->peek() == ")") {
+      cout << "Error: Mismatched parentheses." << endl;
+      exit(1);
+    }
+    output->enqueue(operators->pop());
+  }
+
+  return output;
 }
 
 

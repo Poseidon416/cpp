@@ -2,10 +2,14 @@
 #include "LinkedList.hpp"
 using namespace std;
 
-class Stack: public LinkedList {
+template <typename T>
+class Stack: public LinkedList<T> {
 public:
   Stack();
-  void push(string s);
-  string pop();
-  string peek();
+  void push(T v);
+  T pop();
+  T peek();
+  bool isEmpty();
 };
+
+#include "Stack.tpp"

@@ -2,11 +2,15 @@
 #include "LinkedList.hpp"
 using namespace std;
 
-class Queue: public LinkedList {
+template <typename T>
+class Queue: public LinkedList<T> {
 private:
-  Node* tail;
+  Node<T>* tail;
 public:
   Queue();
-  void enqueue(string s);
-  string dequeue();
+  void enqueue(T v);
+  T dequeue();
+  bool isEmpty();
 };
+
+#include "Queue.tpp"

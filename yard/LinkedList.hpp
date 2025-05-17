@@ -4,24 +4,28 @@
 #include <string>
 using namespace std;
 
+template <typename T>
 class Node{
  private:
-  string val;
-  Node* next;
+  T val;
+  Node<T>* next;
  public:
-  Node(string s);
-  Node* getNext();
-  void setNext(Node* n);
-  string getVal();
+  Node(T v);
+  Node<T>* getNext();
+  void setNext(Node<T>* n);
+  T getVal();
 };
 
+template <typename T>
 class LinkedList{
  protected:
-  Node* head;
+  Node<T>* head;
  public:
   LinkedList();
   ~LinkedList();
-  Node* getHead();
+  Node<T>* getHead();
 };
+
+#include "LinkedList.tpp"
 
 #endif
