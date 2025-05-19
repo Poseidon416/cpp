@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
+#include <cmath>
 #include "Stack.hpp"
 #include "Queue.hpp"
 #include "TNode.hpp"
@@ -10,6 +11,7 @@ using namespace std;
 /* sources:
  * https://en.wikipedia.org/wiki/Shunting_yard_algorithm
  * https://en.wikipedia.org/wiki/Binary_expression_tree
+ * https://www.w3schools.com/cpp/cpp_templates.asp
  */
 
 bool isOperator(char op);
@@ -19,9 +21,14 @@ string assosciation(char op);
 
 Queue<string>* shuntingYard(string infix);
 TNode<string>* expressionTree(Queue<string>* postfix);
-void printTree(TNode<string>* root, int depth = 0);
+void printTree(TNode<string>* curr, int depth = 0);
+void printInfix(TNode<string>* curr, bool isRoot = true);
+void printPostfix(TNode<string>* curr);
+void printPrefix(TNode<string>* curr);
+double eval(TNode<string>* root);
 
 int main(){
+  cout << "\033[H\033[2J"; //clear console  
   cout << "\033[4m\033[1m\tShunting Yard Algorithm\033[0m" << endl;
   
   string input;
@@ -32,13 +39,19 @@ int main(){
     cout << "Enter valid expression.";
     exit(1);
   }
+  cout << "Postfix: ";
+  postfix->print();
+  cout << endl << "Tree:" << endl;
   TNode<string>* root = expressionTree(postfix);
-  cout << "Post-fix: ";
-  while(!postfix->isEmpty()){
-    cout << postfix->dequeue() << " ";
-  }
-  cout << "Tree:" << endl;
   printTree(root);
+  cout << "Infix: ";
+  printInfix(root);
+  cout << endl << "Postfix: ";
+  printPostfix(root);
+  cout << endl << "Prefix: ";
+  printPrefix(root);
+  cout << endl << "Result: ";
+  cout << round(eval(root) * 10000.0) / 10000.0 << endl;
   return 0;
 }
 
@@ -78,14 +91,14 @@ Queue<string>* shuntingYard(string infix) {
   for (int i = 0; i < infix.length(); i++) {
     char c = infix[i];
     if (isdigit(c)) {
-      if(start == -1) {//checks if there is no current num sequence
+      if(start == -1) {
 	start = i;
 	count = 1;
-      } else { //if there is a sequence, increases digit count
+      } else {
 	count++;
       }
-    } else { //if not a digit
-      if (start != -1) { //completes num sequence and resets
+    } else {
+      if (start != -1) {
 	string s = infix.substr(start, count);
 	output->enqueue(s);
 	start = -1;
@@ -118,7 +131,7 @@ Queue<string>* shuntingYard(string infix) {
     string s = infix.substr(start, count);
     output->enqueue(s);
   }
-  //empty operator stack into output
+  //emypty operator stack into output
   while(!operators->isEmpty()) {
     if (operators->peek() == "(" || operators->peek() == ")") {
       cout << "Error: Mismatched parentheses." << endl;
@@ -158,3 +171,59 @@ void printTree(TNode<string>* curr, int depth) {
 
   printTree(curr->getLeft(), depth + 1);
 }
+
+void printInfix(TNode<string>* curr, bool isRoot) {
+  if (curr == NULL) return;
+  if(isOperator(curr->getVal()) && !isRoot) cout << "( ";
+  printInfix(curr->getLeft(), false);
+  cout << curr->getVal() << " ";
+  printInfix(curr->getRight(), false);
+  if(isOperator(curr->getVal()) && !isRoot) cout << ") ";  
+}
+
+void printPostfix(TNode<string>* curr) {
+  if (curr == NULL) return;
+  printPostfix(curr->getLeft());
+  printPostfix(curr->getRight());
+  cout << curr->getVal() << " ";
+}
+
+void printPrefix(TNode<string>* curr) {
+  if (curr == NULL) return;
+  cout << curr->getVal() << " ";
+  printPrefix(curr->getLeft());
+  printPrefix(curr->getRight());
+}
+
+double eval(TNode<string>* root) {
+  if (root->getLeft() == NULL && root->getRight() == NULL) {
+    return stod(root->getVal());
+  }
+
+  double leftVal = eval(root->getLeft());
+  double rightVal = eval(root->getRight());
+  
+  if(root->getVal() == "^") {
+    return pow(leftVal, rightVal);
+  }
+  if(root->getVal() == "*") {
+    return leftVal * rightVal;
+  }
+  if(root->getVal() == "/") {
+    if (rightVal == 0) {
+      cout << "Undefined" << endl;
+      exit(1);
+    }
+    return leftVal / rightVal; 
+  }
+  if(root->getVal() == "+") {
+    return leftVal + rightVal;
+  }
+  if(root->getVal() == "-") {
+    return leftVal - rightVal;    
+  }
+}
+
+
+
+    

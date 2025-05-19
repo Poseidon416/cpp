@@ -11,6 +11,7 @@ public:
   void enqueue(T v);
   T dequeue();
   bool isEmpty();
+  void print();
 };
 
 #include "Queue.tpp"

@@ -33,3 +33,12 @@ template <typename T>
 bool Queue<T>::isEmpty() {
   return this->head == NULL;
 }
+
+template <typename T>
+void Queue<T>::print() {
+  Node<T>* current = this->head;
+  while(current != NULL) {
+    cout << current->getVal() << " ";
+    current = current->getNext();
+  }
+}
