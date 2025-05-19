@@ -1,16 +1,19 @@
 #include <string>
 using namespace std;
 
+template <typename T>
 class TNode {
 private:
-  string val;
-  TNode* left;
-  TNode* right;
+  T val;
+  TNode<T>* left;
+  TNode<T>* right;
 public:
-  TNode(string s);
-  string getVal();
-  TNode* getLeft();
-  TNode* getRight();
-  void setLeft(TNode* t);
-  void setRight(TNode* t);
+  TNode(T v);
+  T getVal();
+  TNode<T>* getLeft();
+  TNode<T>* getRight();
+  void setLeft(TNode<T>* t);
+  void setRight(TNode<T>* t);
 };
+
+#include "TNode.tpp"

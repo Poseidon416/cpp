@@ -13,10 +13,13 @@ using namespace std;
  */
 
 bool isOperator(char op);
+bool isOperator(string op);
 int operatorRank(char op);
 string assosciation(char op);
 
 Queue<string>* shuntingYard(string infix);
+TNode<string>* expressionTree(Queue<string>* postfix);
+void printTree(TNode<string>* root, int depth = 0);
 
 int main(){
   cout << "\033[4m\033[1m\tShunting Yard Algorithm\033[0m" << endl;
@@ -29,15 +32,22 @@ int main(){
     cout << "Enter valid expression.";
     exit(1);
   }
+  TNode<string>* root = expressionTree(postfix);
   cout << "Post-fix: ";
   while(!postfix->isEmpty()){
-    cout << postfix->dequeue();
+    cout << postfix->dequeue() << " ";
   }
+  cout << "Tree:" << endl;
+  printTree(root);
   return 0;
 }
 
 bool isOperator(char op) {
   return op == '+' || op == '-' || op == '*' || op == '/' || op == '^';
+}
+
+bool isOperator(string op) {
+  return isOperator(op[0]);
 }
 
 int operatorRank(string op) {
@@ -120,4 +130,31 @@ Queue<string>* shuntingYard(string infix) {
   return output;
 }
 
+TNode<string>* expressionTree(Queue<string>* postfix) {
+  Stack<TNode<string>*>* trees = new Stack<TNode<string>*>();
+  while(!postfix->isEmpty()){
+    string s = postfix->dequeue();
+    TNode<string>* t = new TNode<string>(s);
+    if (!isOperator(t->getVal())) {
+      trees->push(t);
+    } else {
+      t->setRight(trees->pop());
+      t->setLeft(trees->pop());
+      trees->push(t);
+    }
+  }
+  return trees->pop();
+}
 
+void printTree(TNode<string>* curr, int depth) {
+  if (curr == NULL) return;
+
+  printTree(curr->getRight(), depth + 1);
+  
+  for(int i = 0; i < depth; i++) {
+    cout << '\t';
+  }
+  cout << curr->getVal() << endl;
+
+  printTree(curr->getLeft(), depth + 1);
+}
