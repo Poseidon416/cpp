@@ -15,6 +15,6 @@ public:
 class BinaryTree {
 private:
   Node* root;
-public:y
+public:
   BinaryTree();
 };
