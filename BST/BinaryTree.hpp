@@ -4,7 +4,7 @@ private:
   Node* left;
   Node* right;
 public:
-  Node();
+  Node(int i);
   int getVal();
   Node* getLeft();
   Node* getRight();
@@ -17,4 +17,9 @@ private:
   Node* root;
 public:
   BinaryTree();
+  Node* getRoot();
+  void add(int i);
+  void add(Node* curr, int i);
+  void printTree();
+  void printTree(Node* curr, int depth = 0);
 };
