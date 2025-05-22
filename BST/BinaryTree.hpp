@@ -19,7 +19,5 @@ public:
   BinaryTree();
   Node* getRoot();
   void add(int i);
-  void add(Node* curr, int i);
   void printTree();
-  void printTree(Node* curr, int depth = 0);
 };
