@@ -6,6 +6,7 @@ private:
 public:
   Node(int i);
   int getVal();
+  void setVal(int i);
   Node* getLeft();
   Node* getRight();
   void setLeft(Node* n);
@@ -20,4 +21,6 @@ public:
   Node* getRoot();
   void add(int i);
   void printTree();
+  Node* search(int i);
+  void erradicate(int i);
 };
