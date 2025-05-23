@@ -77,34 +77,53 @@ Node* BinaryTree::search(int i) {
   return rSearch(root, i);
 }
 
-void rDelete(Node* curr, int i) {
+void rDelete(Node* prev, Node* curr, int i) {
   if (curr == NULL) return;
   if (i < curr->getVal()) {
-    rDelete(curr->getLeft(), i);
+    rDelete(curr, curr->getLeft(), i);
   } else if (i > curr->getVal()) {
-    rDelete(curr->getRight(), i);
+    rDelete(curr, curr->getRight(), i);
   } else {
     if(curr->getLeft() == NULL && curr->getRight() == NULL) {
+      if(prev->getLeft() == curr) {
+	prev->setLeft(NULL);
+      } else {
+	prev->setRight(NULL);
+      }
       delete curr;
-      curr = NULL;
     } else if (curr->getRight() == NULL) {
-      Node* temp = curr;
-      curr = curr->getLeft();
-      delete temp;
+      if(prev->getLeft() == curr) {
+        prev->setLeft(curr->getLeft());
+      } else {
+        prev->setRight(curr->getLeft());
+      }
+      delete curr;
     } else if (curr->getLeft() == NULL) {
-      Node* temp = curr;
-      curr = curr->getRight();
-      delete temp;
+      if(prev->getLeft() == curr) {
+        prev->setLeft(curr->getRight());
+      } else {
+        prev->setRight(curr->getRight());
+      }
+      delete curr;
     } else {
+      Node* parent = curr;
       Node* predecessor = curr->getLeft();
       while (predecessor->getRight() != NULL) {
-        predecessor = predecessor->getRight();
+	cout << parent << endl;
+	cout << predecessor << endl;
+	parent = predecessor;
+	predecessor = predecessor->getRight();
       }
       curr->setVal(predecessor->getVal());
-      rDelete(curr->getLeft(), i);
+      if (parent == curr) {
+	parent->setLeft(predecessor->getLeft());
+      } else {
+	parent->setRight(predecessor->getLeft());
+      }
+      delete predecessor;
     }
   }
 }
 void BinaryTree::erradicate(int i) {
-  rDelete(root, i);
+  rDelete(root, root, i);
 }
