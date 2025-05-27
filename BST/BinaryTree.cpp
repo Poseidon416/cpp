@@ -77,53 +77,69 @@ Node* BinaryTree::search(int i) {
   return rSearch(root, i);
 }
 
-void rDelete(Node* prev, Node* curr, int i) {
-  if (curr == NULL) return;
-  if (i < curr->getVal()) {
-    rDelete(curr, curr->getLeft(), i);
-  } else if (i > curr->getVal()) {
-    rDelete(curr, curr->getRight(), i);
-  } else {
-    if(curr->getLeft() == NULL && curr->getRight() == NULL) {
-      if(prev->getLeft() == curr) {
-	prev->setLeft(NULL);
-      } else {
-	prev->setRight(NULL);
+void rDelete(Node* &root, Node* prev, Node* curr, int i) {
+  if (curr == NULL) return; //node not found
+  if (i < curr->getVal()) { //traverse left
+    rDelete(root, curr, curr->getLeft(), i);
+  } else if (i > curr->getVal()) { //traverse right
+    rDelete(root, curr, curr->getRight(), i);
+  } else { //node found
+    if (curr == root) { //root cases
+      if(root->getLeft() == NULL && root->getRight() == NULL) { //no children
+        Node* temp = root;
+	root = NULL;
+	delete temp;
+      } else if (curr->getRight() == NULL) { //left child
+        Node* temp = root;
+	root = root->getLeft();
+	delete temp;
+      } else if (curr->getLeft() == NULL) { //right child
+        Node* temp = root;
+	root = root->getRight();
+	delete temp;
+      } else { //2 children
+        Node* predecessor = root->getLeft();
+        while (predecessor->getRight() != NULL) {
+          predecessor = predecessor->getRight();
+        }
+        int predVal = predecessor->getVal();
+        root->setVal(predVal);
+        rDelete(root, root, root->getLeft(), predVal);
       }
-      delete curr;
-    } else if (curr->getRight() == NULL) {
-      if(prev->getLeft() == curr) {
-        prev->setLeft(curr->getLeft());
-      } else {
-        prev->setRight(curr->getLeft());
+    } else { //other nodes
+      if(curr->getLeft() == NULL && curr->getRight() == NULL) { //no children
+	if(prev->getLeft() == curr) {
+	  prev->setLeft(NULL);
+	} else {
+	  prev->setRight(NULL);
+	}
+	delete curr;
+      } else if (curr->getRight() == NULL) { //left child
+	if(prev->getLeft() == curr) {
+	  prev->setLeft(curr->getLeft());
+	} else {
+	  prev->setRight(curr->getLeft());
+	}
+	delete curr;
+      } else if (curr->getLeft() == NULL) { //right child
+	if(prev->getLeft() == curr) {
+	  prev->setLeft(curr->getRight());
+	} else {
+	  prev->setRight(curr->getRight());
+	}
+	delete curr;
+      } else { //2 children
+	Node* predecessor = curr->getLeft();
+	while (predecessor->getRight() != NULL) {
+	  predecessor = predecessor->getRight();
+	}
+	int predVal = predecessor->getVal();
+	curr->setVal(predVal);
+	rDelete(root, curr, curr->getLeft(), predVal);
       }
-      delete curr;
-    } else if (curr->getLeft() == NULL) {
-      if(prev->getLeft() == curr) {
-        prev->setLeft(curr->getRight());
-      } else {
-        prev->setRight(curr->getRight());
-      }
-      delete curr;
-    } else {
-      Node* parent = curr;
-      Node* predecessor = curr->getLeft();
-      while (predecessor->getRight() != NULL) {
-	cout << parent << endl;
-	cout << predecessor << endl;
-	parent = predecessor;
-	predecessor = predecessor->getRight();
-      }
-      curr->setVal(predecessor->getVal());
-      if (parent == curr) {
-	parent->setLeft(predecessor->getLeft());
-      } else {
-	parent->setRight(predecessor->getLeft());
-      }
-      delete predecessor;
     }
   }
 }
 void BinaryTree::erradicate(int i) {
-  rDelete(root, root, i);
+  rDelete(root, root, root, i);
 }
