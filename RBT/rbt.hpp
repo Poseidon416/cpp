@@ -1,23 +1,22 @@
 #include <iostream>
 using namespace std;
 
-struct node {
+struct Node {
   int data;
-  node * left;
-  node * right;
+  Node* left;
+  Node* right;
+  Node* parent;
   char color;
-  node(int i, bool isRoot);
+  Node(int i, Node* parent, bool isRoot = false);
 };
 
 class RBT {
 private:
-  node * root;
+  Node* root;
 public:
   RBT();
   void add(int i);
-  void rotateLeft();
-  void rotateRight();
   void display();
-  node* search(int i);
+  Node* search(int i);
   void erradicate(int i);
 };

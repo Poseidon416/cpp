@@ -12,7 +12,7 @@ int main() {
   cout << " CMDS: \"ADD\", \"DELETE\", \"PRINT\", \"SEARCH\", \"QUIT\" " << endl;
   cout << "--------------------------------------------------" << "\033[0m" << endl;
 
-  //declare rbt here
+  RBT* rbt = new RBT();
   
   bool running = true;
   while (running) {
@@ -27,23 +27,23 @@ int main() {
       cout << "Add from 1:Console, or 2:File? ";
       int response;
       cin >> response;
-      if (response == 1) {
+      if (response == 1) {//console
 	cout << "Type 0 to quit" << endl;
 	int i;
 	while (true) {
 	  cout << "Enter integer (1 - 999): ";
 	  cin >> i;
 	  if (i < 1 ) break;
-	  //add here
+	  rbt->add(i);
 	}
-      } else {
+      } else {//file
 	string fname;
 	cout << "Enter file name: ";
 	cin >> fname;
 	fstream file(fname);
 	string num;
 	while (getline(file, num, ' ')){
-	  //add here
+	  rbt->add(stoi(num));
 	}
 	file.close();
       }
@@ -53,20 +53,20 @@ int main() {
       int i;
       cout << "Enter integer to delete -> ";
       cin >> i;
-      //delete here
+      rbt->erradicate(i);
       cout << "--------------------------------------------------" << endl;
     } else if (command == "SEARCH") {
       int i;
       cout << "Enter integer to search -> ";
       cin >> i;
-      /*if(){
+      if(rbt->search(i)){
 	cout << i << " was found!" << endl;
       } else {
 	cout << i << " was not found. :'(" << endl;
-      }*/
+      }
     } else if (command == "PRINT") {
       cout << "--------------------------------------------------" << endl;
-      //print
+      rbt->display();
       cout << "--------------------------------------------------" << endl;
     } else if (command == "QUIT") {
       running = false; //exits while loop
